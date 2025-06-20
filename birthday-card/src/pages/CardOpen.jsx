@@ -8,30 +8,24 @@ const MESSAGE_DISPLAY_TIME = 5000;
 // Responsive grid positions (different for mobile/desktop)
 const GRID_POSITIONS = {
   desktop: [
-    { top: "15%", left: "5%" },
-    { top: "35%", left: "5%" },
-    { top: "55%", left: "5%" },
-    { top: "75%", left: "5%" },
-    { top: "20%", left: "55%" },
-    { top: "40%", left: "55%" },
+    { top: "0%", left: "5%" },
+    { top: "25%", left: "0%" },
+    { top: "50%", left: "10%" },
+    { top: "75%", left: "15%" },
+    { top: "15%", left: "50%" },
+    { top: "40%", left: "75%" },
     { top: "60%", left: "55%" },
-    { top: "80%", left: "55%" },
-    { top: "25%", left: "55%" },
-    { top: "40%", left: "55%" },
-    { top: "55%", left: "55%" },
-    { top: "70%", left: "55%" },
+    { top: "85%", left: "55%" },
   ],
   mobile: [
-    { top: "10%", left: "10%" },
-    { top: "25%", left: "10%" },
-    { top: "40%", left: "10%" },
+    { top: "5%", left: "15%" },
+    { top: "28%", left: "5%" },
+    { top: "40%", left: "35%" },
     { top: "55%", left: "10%" },
-    { top: "70%", left: "10%" },
-    { top: "15%", left: "30%" },
-    { top: "30%", left: "30%" },
-    { top: "45%", left: "30%" },
-    { top: "60%", left: "30%" },
-    { top: "75%", left: "30%" },
+    { top: "80%", left: "20%" },
+    { top: "15%", left: "70%" },
+    { top: "40%", left: "80%" },
+    { top: "65%", left: "60%" },
   ],
 };
 
@@ -171,13 +165,13 @@ export default function CardOpen() {
             <div className="absolute top-2 right-2 md:top-4 md:right-4 text-xl md:text-3xl text-red-300">
               ❤️
             </div>
-            <div className="absolute bottom-2 right-2 md:bottom-20 md:right-4 text-lg md:text-2xl text-amber-400">
+            <div className="absolute bottom-2 right-2 md:bottom-20 md:right-4 text-xl md:text-3xl text-amber-400">
               🎉
             </div>
-            <div className="absolute top-10 left-10 md:left-20 text-lg md:text-2xl text-amber-400">
+            <div className="absolute top-10 left-10 md:top-20 md:left-20 text-2xl md:text-4xl text-amber-400">
               🎊
             </div>
-            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-lg md:text-2xl text-amber-400">
+            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-3xl md:text-5xl text-amber-400">
               🥂
             </div>
             <div className="absolute top-1/2 right-1/4 text-2xl md:text-4xl text-amber-200">
@@ -199,9 +193,14 @@ export default function CardOpen() {
                   >
                     ✕
                   </button>
-                  <p className="text-sm md:text-base text-gray-800 font-serif text-center">
-                    {selectedName.message}
-                  </p>
+                  <div className="flex flex-col">
+                    <p className="text-sm md:text-base text-gray-800 font-serif text-center">
+                      {selectedName.message}
+                    </p>
+                    <p className="text-sm md:text-base text-gray-600 font-serif italic mt-4 self-end">
+                      — {selectedName.name}
+                    </p>
+                  </div>
                 </motion.div>
               ) : (
                 <p className="text-sm md:text-base text-gray-500 italic">

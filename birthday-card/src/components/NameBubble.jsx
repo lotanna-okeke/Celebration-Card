@@ -10,11 +10,11 @@ export default function NameBubble({ name, onClick, style, isMobile }) {
       }}
       transition={{ 
         y: {
-          duration: 2,
+          duration: 1,
           repeat: Infinity,
           ease: "easeInOut"
         },
-        type: "spring"
+        type: "spring",
       }}
       whileHover={{ scale: 1.1 }}
       className={`absolute ${isMobile ? 'text-xs px-2 py-1' : 'text-sm px-3 py-1.5 md:text-base md:px-4 md:py-2'} bg-amber-500 text-white rounded-full shadow-md cursor-pointer z-10`}
