@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import NameBubble from "../components/NameBubble";
+import dadPhoto from "../assets/dad-photo.jpeg"; // Import your photo
 
 const NAMES_PER_PAGE = 8;
-const MESSAGE_DISPLAY_TIME = 5000;
+const MESSAGE_DISPLAY_TIME = 20000;
 
 // Responsive grid positions (different for mobile/desktop)
 const GRID_POSITIONS = {
@@ -30,13 +31,18 @@ const GRID_POSITIONS = {
 };
 
 const names = [
-  { id: 1, name: "Aunty Ego", message: "You're the best dad ever!" },
-  { id: 2, name: "Michael", message: "Thanks for all the life lessons." },
-  { id: 3, name: "Emily", message: "Happy Birthday Dad!" },
-  { id: 4, name: "David", message: "Wishing you the best year!" },
-  { id: 5, name: "Jessica", message: "You're the best mom ever!" },
-  { id: 6, name: "Daniel", message: "Thanks for being a friend." },
-  { id: 7, name: "Jessica", message: "Happy Birthday Mom!" },
+  {
+    id: 1,
+    name: "Mom",
+    message:
+      "Happy Birthday to the best husband and father in the world! May your heart desires be fulfilled today and always,  Amen. 🙏🏽. I pray for long life in good health, prosperity, growing stronger and closer to God, Amen.",
+  },
+  { id: 5, name: "Chidalu", message: "Daddy Happy Birthday. We are all wishing you long life, prosperity and good health in many more years to come. We thank you for everything you've done for us and what you've made us achieve in our respective lives. We pray the Lord would continue to use you for his work and continue to shower you with abundant blessings all the days of your life..all your hearts desires and private intentions are already granted in Jesus name, Amenn!! Thank you for being the best dad and role model to all of us up until this very day and we are privileged to have you as our Dad. Happy Birthday once again Big Man🙌🙏💙" },
+  { id: 20, name: "Kam Kam", message: "Dear Father, Happy 53rd Birthday.Thank you for being my rock, my guide, and jointly my greatest example of strength and love, alongside mummy. Your wisdom, kindness, and sacrifices never go unnoticed. I’m so blessed to call you my father. Wishing you joy, good health, and all the happiness in the world today and always. Love you deeply!" },
+  { id: 3, name: "Lolo", message: "Happy Birthday Daddy. Thank you for being a role model and a great father. I pray we, your children coontinue to make you proud as the lord blesses you with joy, fulfillment and all your heart desires. 🙏🏾💙" },
+  { id: 4, name: "Chiamaka", message: "Happy birthday to the man God blessed my family with. He gave us an Uncle but you became much more, you became a father and friend to my brothers and I. Thank you so much sir for your support and Kindness, thank you for always being someone I can come to with my issues and leave lighter. I pray that God continues to bless your good heart with your desires, I pray for many more fruitful years that you may be able to see how your hardwork paid off and reap it as well. I pray that you forever remain the Jolly fellow that you are. God bless you Uncle Chike." },
+  { id: 6, name: "Tony", message: "Happy Birthday, Uncle! Wishing you a fantastic day filled with laughter, joy, and all the things you love most. On this special occasion, I want to express my heartfelt gratitude for your constant guidance, support, and the positive impact you’ve had in my life. Your wisdom, integrity, and kindness are truly admirable, and I feel fortunate to have you as my uncle. May this new year bring you good health, great memories, and endless blessings. May all your aspirations continue to flourish, and may each day bring you closer to your heart’s desires." },
+  { id: 7, name: "David", message: "Happy Birthday to the most amazing uncle in the world! 🤩 Thank you for always being there for me, for your love, guidance, and support. I'm always so grateful. Wishing you wonderful years ahead filled with joy, good health, and happiness." },
   { id: 8, name: "Daniel", message: "Wishing you the best year!" },
   { id: 9, name: "Jessica", message: "You're the best mom ever!" },
   { id: 10, name: "Daniel", message: "Thanks for being a friend." },
@@ -48,7 +54,7 @@ const names = [
   { id: 4, name: "David", message: "Wishing you the best year!" },
   { id: 5, name: "Jessica", message: "You're the best mom ever!" },
   { id: 6, name: "Daniel", message: "Thanks for being a friend." },
-  { id: 7, name: "Jessica", message: "Happy Birthday Mom!" },
+  { id: 7, name: "Jessica", message: "Happy BirthdayMom!" },
   { id: 8, name: "Daniel", message: "Wishing you the best year!" },
   { id: 9, name: "Jessica", message: "You're the best mom ever!" },
 ];
@@ -159,23 +165,23 @@ export default function CardOpen() {
             </div>
           </div>
 
-          {/* Right Page */}
+          {/* Right Page (messages) */}
           <div className="w-full md:w-1/2 h-1/2 md:h-full bg-white p-4 md:p-8 relative">
             {/* Decorations */}
-            <div className="absolute top-2 right-2 md:top-4 md:right-4 text-xl md:text-3xl text-red-300">
-              ❤️
-            </div>
-            <div className="absolute bottom-2 right-2 md:bottom-20 md:right-4 text-xl md:text-3xl text-amber-400">
-              🎉
-            </div>
-            <div className="absolute top-10 left-10 md:top-20 md:left-20 text-2xl md:text-4xl text-amber-400">
+            <div className="opacity-60 absolute top-10 left-10 md:top-20 md:left-20 text-2xl md:text-4xl text-amber-400 z-20">
               🎊
             </div>
-            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-3xl md:text-5xl text-amber-400">
+            <div className="absolute top-2 right-2 md:top-4 md:right-4 text-xl md:text-3xl text-red-300 z-20">
+              ❤️
+            </div>
+            <div className="opacity-50 absolute top-1/2 right-1/4 text-2xl md:text-4xl text-amber-200 z-20">
+              ★
+            </div>
+            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-3xl md:text-5xl text-amber-400 z-20">
               🥂
             </div>
-            <div className="absolute top-1/2 right-1/4 text-2xl md:text-4xl text-amber-200">
-              ★
+            <div className="absolute bottom-2 right-2 md:bottom-20 md:right-8 text-xl md:text-3xl text-amber-400 z-20">
+              🎉
             </div>
 
             {/* Message Display */}
@@ -185,22 +191,24 @@ export default function CardOpen() {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
-                  className="w-40 h-40 md:w-64 md:h-64 bg-yellow-50 p-4 md:p-6 shadow-md border border-amber-200 flex items-center justify-center relative"
+                  className="w-full max-w-[90%] h-full max-h-[90%] bg-yellow-50 p-4 md:p-6 shadow-md border border-amber-200 flex flex-col relative z-10"
                 >
                   <button
                     onClick={() => setSelectedName(null)}
-                    className="absolute top-1 right-1 md:top-2 md:right-2 text-gray-500 hover:text-gray-700"
+                    className="absolute top-1 right-1 md:top-2 md:right-2 text-gray-500 hover:text-gray-700 z-30"
                   >
                     ✕
                   </button>
-                  <div className="flex flex-col">
-                    <p className="text-sm md:text-base text-gray-800 font-serif text-center">
-                      {selectedName.message}
-                    </p>
-                    <p className="text-sm md:text-base text-gray-600 font-serif italic mt-4 self-end">
-                      — {selectedName.name}
-                    </p>
+                  <div className="flex-grow overflow-y-auto px-2">
+                    <div className="min-h-full flex items-center justify-center">
+                      <p className="text-sm md:text-base text-gray-800 font-serif text-center">
+                        {selectedName.message}
+                      </p>
+                    </div>
                   </div>
+                  <p className="text-sm md:text-base text-gray-600 font-serif italic mt-2 self-end">
+                    — {selectedName.name}
+                  </p>
                 </motion.div>
               ) : (
                 <p className="text-sm md:text-base text-gray-500 italic">
@@ -253,20 +261,39 @@ export default function CardOpen() {
             </h2>
             <p className="text-xl md:text-2xl text-amber-600">Happy Birthday</p>
             <p className="text-lg md:text-xl text-gray-700 mt-2 md:mt-4">
-              - From Your Children -
+              - From Your Family -
             </p>
           </div>
 
-          {/* Final Page Right Side */}
-          <div className="w-full md:w-1/2 h-1/2 md:h-full bg-gradient-to-b from-red-50 to-amber-100 p-4 md:p-8 relative">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl md:text-6xl lg:text-8xl">
-              🎂
+          {/* Final Page Right Side with Photo */}
+          <div className="w-full md:w-1/2 h-1/2 md:h-full bg-gradient-to-b from-red-50 to-amber-100 p-4 md:p-8 relative overflow-hidden">
+            {/* Photo Frame */}
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className="relative w-full max-w-[80%] h-full max-h-[80%] sm:max-w-[60%] sm:max-h-[60%] md:max-w-[75%] md:max-h-[75%] rounded-lg overflow-hidden shadow-xl border-4 border-white">
+                <img
+                  src={dadPhoto}
+                  alt="Dad"
+                  className="w-full h-full object-contain"
+                />
+                <div className="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-amber-400" />
+                <div className="absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 border-amber-400" />
+                <div className="absolute bottom-0 left-0 w-8 h-8 border-l-4 border-b-4 border-amber-400" />
+                <div className="absolute bottom-0 right-0 w-8 h-8 border-r-4 border-b-4 border-amber-400" />
+              </div>
             </div>
-            <div className="absolute top-4 right-4 md:top-8 md:right-8 text-2xl md:text-4xl">
+
+            {/* Decorations around photo */}
+            <div className="absolute top-2 right-2 text-2xl md:text-4xl text-amber-400 animate-bounce">
               🎈
             </div>
-            <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 text-2xl md:text-4xl">
+            <div className="absolute bottom-2 left-2 text-2xl md:text-4xl text-amber-500 animate-pulse">
               🎁
+            </div>
+            <div className="absolute top-2 left-2 text-2xl md:text-4xl text-red-400 animate-float">
+              ❤️
+            </div>
+            <div className="absolute bottom-2 right-2 text-2xl md:text-4xl text-amber-600 animate-spin-slow">
+              ✨
             </div>
           </div>
 
