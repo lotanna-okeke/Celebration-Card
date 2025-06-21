@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import NameBubble from "../components/NameBubble";
 import dadPhoto from "../assets/dad-photo.jpeg"; // Import your photo
 
@@ -40,16 +40,17 @@ const names = [
   { id: 12, name: "KK", message: "Happy Birthday Daddy (couldn't get her messages on time) 😢" },
   { id: 12, name: "KC", message: "Happy Birthday Daddy (couldn't get his messages on time) 😢" },
   { id: 5, name: "Chiboy", message: "Daddy Happy Birthday. We are all wishing you long life, prosperity and good health in many more years to come. We thank you for everything you've done for us and what you've made us achieve in our respective lives. We pray the Lord would continue to use you for his work and continue to shower you with abundant blessings all the days of your life..all your hearts desires and private intentions are already granted in Jesus name, Amenn!! Thank you for being the best dad and role model to all of us up until this very day and we are privileged to have you as our Dad. Happy Birthday once again Big Man🙌🙏💙" },
-  { id: 20, name: "Kam Kam", message: "Dear Father, Happy 53rd Birthday.Thank you for being my rock, my guide, and jointly my greatest example of strength and love, alongside mummy. Your wisdom, kindness, and sacrifices never go unnoticed. I’m so blessed to call you my father. Wishing you joy, good health, and all the happiness in the world today and always. Love you deeply!" },
+  { id: 20, name: "Kam Kam", message: "Dear Father, Happy 53rd Birthday.Thank you for being my rock, my guide, and jointly my greatest example of strength and love, alongside mummy. Your wisdom, kindness, and sacrifices never go unnoticed. I'm so blessed to call you my father. Wishing you joy, good health, and all the happiness in the world today and always. Love you deeply!" },
   { id: 3, name: "Lolo", message: "Happy Birthday Daddy. Thank you for being a role model and a great father. I pray we, your children coontinue to make you proud as the lord blesses you with joy, fulfillment and all your heart desires. 🙏🏾💙" },
   { id: 2, name: "Chinaza", message: "*Happy birthday to the best dad life gave me🥰🥰🥰🥰🥰🥰...* _I don't say this enough, you are the best dad any child could ever have. May God continue to bless you, protect you and keep directing your steps. For the love you showed and kept showing us all, may the love of God never elude you 🙏🙏🙏. And may The LORD bless you and keep you; The LORD make His face shine upon you, And be gracious to you; The LORD lift up His countenance upon you, And give you peace. AMEN 🥂 ✨" },
+  { id: 12, name: "Aunty Oluchi", message: "Happy Birthday to a wonderful Brother-in-law, a man of inestimable value, a Jesus Lover, the humblest man I have ever known and an in-law per excellence. Many more years to you Sir. Heaven and earth celebrates you on this day. Chyko, you are indeed a blessing to our family and humanity at large. Chukwu gozie gide, I pray that you would be blessed with many more years of greatness." },
   { id: 4, name: "Chiamaka", message: "Happy birthday to the man God blessed my family with. He gave us an Uncle but you became much more, you became a father and friend to my brothers and I. Thank you so much sir for your support and Kindness, thank you for always being someone I can come to with my issues and leave lighter. I pray that God continues to bless your good heart with your desires, I pray for many more fruitful years that you may be able to see how your hardwork paid off and reap it as well. I pray that you forever remain the Jolly fellow that you are. God bless you Uncle Chike." },
-  { id: 6, name: "Tony", message: "Happy Birthday, Uncle! Wishing you a fantastic day filled with laughter, joy, and all the things you love most. On this special occasion, I want to express my heartfelt gratitude for your constant guidance, support, and the positive impact you’ve had in my life. Your wisdom, integrity, and kindness are truly admirable, and I feel fortunate to have you as my uncle. May this new year bring you good health, great memories, and endless blessings. May all your aspirations continue to flourish, and may each day bring you closer to your heart’s desires." },
+  { id: 6, name: "Tony", message: "Happy Birthday, Uncle! Wishing you a fantastic day filled with laughter, joy, and all the things you love most. On this special occasion, I want to express my heartfelt gratitude for your constant guidance, support, and the positive impact you've had in my life. Your wisdom, integrity, and kindness are truly admirable, and I feel fortunate to have you as my uncle. May this new year bring you good health, great memories, and endless blessings. May all your aspirations continue to flourish, and may each day bring you closer to your heart's desires." },
   { id: 7, name: "David", message: "Happy Birthday to the most amazing uncle in the world! 🤩 Thank you for always being there for me, for your love, guidance, and support. I'm always so grateful. Wishing you wonderful years ahead filled with joy, good health, and happiness." },
+  { id: 11, name: "Aunty Ego", message: "Happy Birthday! I pray the lord continues to bless you and your family." },
   { id: 8, name: "Chidalu", message: "Happy birthday Sir Chike..God bless you and your family for all that you do.. UK and I are waiting for all of you 😂..Cheers sir" },
   { id: 9, name: "Osora", message: "Happy birthday Uncle! Thank you for being so supportive and kind! God bless you sir" },
   { id: 10, name: "Uche", message: "May God in His mercy grant you divine strength and flavor as you take care of your family. Happy birthday Uncle Chike!" },
-  { id: 11, name: "Aunty Ego", message: "Happy Birthday! I pray the lord continues to bless you and your family." },
 ];
 
 export default function CardOpen() {
@@ -57,6 +58,8 @@ export default function CardOpen() {
   const [showFinalPage, setShowFinalPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
 
   // Check screen size on mount and resize
   useEffect(() => {
@@ -83,20 +86,38 @@ export default function CardOpen() {
     return () => clearTimeout(timer);
   }, [selectedName]);
 
-  const handleNextPage = () => {
+  const handleNextPage = async () => {
+    if (isFlipping) return;
+    
+    setDirection(1);
+    setIsFlipping(true);
+    
+    await new Promise(resolve => setTimeout(resolve, 500)); // Wait for flip animation
+    
     if (currentPage < totalPages - 1) {
       setCurrentPage(currentPage + 1);
       setSelectedName(null);
     } else {
       setShowFinalPage(true);
     }
+    
+    setIsFlipping(false);
   };
 
-  const handlePrevPage = () => {
+  const handlePrevPage = async () => {
+    if (isFlipping) return;
+    
+    setDirection(-1);
+    setIsFlipping(true);
+    
+    await new Promise(resolve => setTimeout(resolve, 500)); // Wait for flip animation
+    
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
       setSelectedName(null);
     }
+    
+    setIsFlipping(false);
   };
 
   const handleBackFromFinal = () => {
@@ -116,131 +137,137 @@ export default function CardOpen() {
   return (
     <div className="fixed inset-0 bg-[#f5f5f5] flex items-center justify-center p-2 sm:p-4">
       {!showFinalPage ? (
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative w-full max-w-[700px] h-[90vh] max-h-[500px] bg-white shadow-xl flex flex-col md:flex-row"
-        >
-          {/* Left Page */}
-          <div className="w-full md:w-1/2 h-1/2 md:h-full bg-gradient-to-b from-blue-50 to-amber-50 p-4 md:p-8 relative md:border-r border-amber-200">
-            {/* Decorations */}
-            <div className="absolute top-2 left-2 md:top-4 md:left-4 text-xl md:text-3xl text-amber-400">
-              ✨
-            </div>
-            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-lg md:text-2xl text-amber-300">
-              🎂
-            </div>
-
-            {/* Title */}
-            <h2 className="text-xl md:text-2xl font-serif text-amber-800 mb-4 md:mb-8">
-              To The World's Best Dad
-            </h2>
-
-            {/* Names Container */}
-            <div className="relative h-[calc(100%-3rem)] md:h-[calc(100%-4rem)] mt-2 md:mt-4">
-              {currentNames.map((person, index) => {
-                const position = getPositions()[index];
-                return (
-                  <NameBubble
-                    key={`${person.id}-${currentPage}`}
-                    name={person.name}
-                    isMobile={isMobile}
-                    style={{
-                      top: position.top,
-                      left: position.left,
-                      rotate: Math.random() * 10 - 5,
-                    }}
-                    onClick={() => setSelectedName(person)}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Right Page (messages) */}
-          <div className="w-full md:w-1/2 h-1/2 md:h-full bg-white p-4 md:p-8 relative">
-            {/* Decorations */}
-            <div className="opacity-60 absolute top-10 left-10 md:top-20 md:left-20 text-2xl md:text-4xl text-amber-400 z-20">
-              🎊
-            </div>
-            <div className="absolute top-2 right-2 md:top-4 md:right-4 text-xl md:text-3xl text-red-300 z-20">
-              ❤️
-            </div>
-            <div className="opacity-50 absolute top-1/2 right-1/4 text-2xl md:text-4xl text-amber-200 z-20">
-              ★
-            </div>
-            <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-3xl md:text-5xl text-amber-400 z-20">
-              🥂
-            </div>
-            <div className="absolute bottom-2 right-2 md:bottom-20 md:right-8 text-xl md:text-3xl text-amber-400 z-20">
-              🎉
-            </div>
-
-            {/* Message Display */}
-            <div className="h-full flex items-center justify-center">
-              {selectedName ? (
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0.8, opacity: 0 }}
-                  className="w-full max-w-[90%] h-full max-h-[90%] bg-yellow-50 p-4 md:p-6 shadow-md border border-amber-200 flex flex-col relative z-10"
-                >
-                  <button
-                    onClick={() => setSelectedName(null)}
-                    className="absolute top-1 right-1 md:top-2 md:right-2 text-gray-500 hover:text-gray-700 z-30"
-                  >
-                    ✕
-                  </button>
-                  <div className="flex-grow overflow-y-auto px-2">
-                    <div className="min-h-full flex items-center justify-center">
-                      <p className="text-sm md:text-base text-gray-800 font-serif text-center">
-                        {selectedName.message}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-sm md:text-base text-gray-600 font-serif italic mt-2 self-end">
-                    — {selectedName.name}
-                  </p>
-                </motion.div>
-              ) : (
-                <p className="text-sm md:text-base text-gray-500 italic">
-                  Click a name to read messages
-                </p>
-              )}
-            </div>
-          </div>
-
-          {/* Navigation Buttons - Fixed at bottom center on mobile */}
-          <div
-            className={`absolute ${
-              isMobile
-                ? "bottom-1 left-1/2 transform -translate-x-1/2"
-                : "bottom-6 right-6"
-            } flex gap-2 md:gap-4`}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`page-${currentPage}`}
+            initial={{ rotateY: direction * 90, opacity: 0 }}
+            animate={{ rotateY: 0, opacity: 1 }}
+            exit={{ rotateY: direction * -90, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative w-full max-w-[700px] h-[90vh] max-h-[500px] bg-white shadow-xl flex flex-col md:flex-row"
           >
-            {currentPage > 0 && (
-              <button
-                onClick={handlePrevPage}
-                className="bg-amber-500 text-white px-3 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-amber-600 transition text-sm md:text-base"
-              >
-                ← {isMobile ? "Prev" : "Previous"}
-              </button>
-            )}
-            <button
-              onClick={handleNextPage}
-              className="bg-amber-500 text-white px-3 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-amber-600 transition text-sm md:text-base"
+            {/* Left Page */}
+            <div className="w-full md:w-1/2 h-1/2 md:h-full bg-gradient-to-b from-blue-50 to-amber-50 p-4 md:p-8 relative md:border-r border-amber-200">
+              {/* Decorations */}
+              <div className="absolute top-2 left-2 md:top-4 md:left-4 text-xl md:text-3xl text-amber-400">
+                ✨
+              </div>
+              <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-lg md:text-2xl text-amber-300">
+                🎂
+              </div>
+
+              {/* Title */}
+              <h2 className="text-xl md:text-2xl font-serif text-amber-800 mb-4 md:mb-8">
+                To The World's Best Dad
+              </h2>
+
+              {/* Names Container */}
+              <div className="relative h-[calc(100%-3rem)] md:h-[calc(100%-4rem)] mt-2 md:mt-4">
+                {currentNames.map((person, index) => {
+                  const position = getPositions()[index];
+                  return (
+                    <NameBubble
+                      key={`${person.id}-${currentPage}`}
+                      name={person.name}
+                      isMobile={isMobile}
+                      style={{
+                        top: position.top,
+                        left: position.left,
+                        rotate: Math.random() * 10 - 5,
+                      }}
+                      onClick={() => setSelectedName(person)}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Page (messages) */}
+            <div className="w-full md:w-1/2 h-1/2 md:h-full bg-white p-4 md:p-8 relative">
+              {/* Decorations */}
+              <div className="opacity-60 absolute top-10 left-10 md:top-20 md:left-20 text-2xl md:text-4xl text-amber-400 z-20">
+                🎊
+              </div>
+              <div className="absolute top-2 right-2 md:top-4 md:right-4 text-xl md:text-3xl text-red-300 z-20">
+                ❤️
+              </div>
+              <div className="opacity-50 absolute top-1/2 right-1/4 text-2xl md:text-4xl text-amber-200 z-20">
+                ★
+              </div>
+              <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-3xl md:text-5xl text-amber-400 z-20">
+                🥂
+              </div>
+              <div className="absolute bottom-2 right-2 md:bottom-20 md:right-8 text-xl md:text-3xl text-amber-400 z-20">
+                🎉
+              </div>
+
+              {/* Message Display */}
+              <div className="h-full flex items-center justify-center">
+                {selectedName ? (
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    className="w-full max-w-[90%] h-full max-h-[90%] bg-yellow-50 p-4 md:p-6 shadow-md border border-amber-200 flex flex-col relative z-10"
+                  >
+                    <button
+                      onClick={() => setSelectedName(null)}
+                      className="absolute top-1 right-1 md:top-2 md:right-2 text-gray-500 hover:text-gray-700 z-30"
+                    >
+                      ✕
+                    </button>
+                    <div className="flex-grow overflow-y-auto px-2">
+                      <div className="min-h-full flex items-center justify-center">
+                        <p className="text-sm md:text-base text-gray-800 font-serif text-center">
+                          {selectedName.message}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-sm md:text-base text-gray-600 font-serif italic mt-2 self-end">
+                      — {selectedName.name}
+                    </p>
+                  </motion.div>
+                ) : (
+                  <p className="text-sm md:text-base text-gray-500 italic">
+                    Click a name to read messages
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Navigation Buttons - Fixed at bottom center on mobile */}
+            <div
+              className={`absolute ${
+                isMobile
+                  ? "bottom-1 left-1/2 transform -translate-x-1/2"
+                  : "bottom-6 right-6"
+              } flex gap-2 md:gap-4`}
             >
-              {currentPage < totalPages - 1
-                ? isMobile
-                  ? "Next →"
-                  : "Next Page →"
-                : isMobile
-                ? "Final →"
-                : "Final Page"}
-            </button>
-          </div>
-        </motion.div>
+              {currentPage > 0 && (
+                <button
+                  onClick={handlePrevPage}
+                  disabled={isFlipping}
+                  className="bg-amber-500 text-white px-3 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-amber-600 transition text-sm md:text-base disabled:opacity-50"
+                >
+                  ← {isMobile ? "Prev" : "Previous"}
+                </button>
+              )}
+              <button
+                onClick={handleNextPage}
+                disabled={isFlipping}
+                className="bg-amber-500 text-white px-3 py-1 md:px-5 md:py-2 rounded-full shadow-md hover:bg-amber-600 transition text-sm md:text-base disabled:opacity-50"
+              >
+                {currentPage < totalPages - 1
+                  ? isMobile
+                    ? "Next →"
+                    : "Next Page →"
+                  : isMobile
+                  ? "Final →"
+                  : "Final Page"}
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       ) : (
         <motion.div
           initial={{ rotateY: 90 }}
